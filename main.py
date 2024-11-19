@@ -17,4 +17,22 @@ while not expression_regex.match(expression):
     expression = input("podaj wzór funkcji kwadratowej:\nf(x) = ")
 
 matched_regex = expression_regex.match(expression)
-print(matched_regex.groups())
+a = float(matched_regex.group(1))
+horizontal_offset_regex = re.compile(r"\(x\s*([\+\-]\s*\d+)\)")
+
+matched_horizontal_offset = horizontal_offset_regex.match(matched_regex.group(2))
+if matched_horizontal_offset:
+    p = float(matched_horizontal_offset.group(1).replace(' ', ''))
+else:
+    p = 0
+
+if matched_regex.group(4):
+    q = float(matched_regex.group(4).replace(' ', ''))
+else:
+    q = 0
+
+print(f"p = {p}")
+print(f"q = {q}")
+
+print(f"y = {a}x² + {2*p*a}x + {p*p*a+q}")
+
